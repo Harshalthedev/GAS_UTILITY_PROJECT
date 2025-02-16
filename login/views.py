@@ -60,7 +60,7 @@ def registration(request):
             else:
                 user = User.objects.create_user(username=username,password=password,email=email)
                 user.save()
-                return redirect('button')
+                return redirect('customer_login')
         else:
             messages.error(request, 'password not match')  # <-
 

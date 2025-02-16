@@ -1,94 +1,181 @@
-{% extends 'layout.html' %}
+<!-- {% extends 'layout.html' %}
 {% block title %}
     Contact Page
 {% endblock %}
 
-{% block content %}
+{% block content %} -->
+<style>
+  /* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
 
+/* Header */
+.header {
+    background: #333;
+    padding: 15px 0;
+    text-align: center;
+}
 
+.header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.header nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+.header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.header nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Breadcrumbs */
+.breadcrumbs {
+    background: #eee;
+    padding: 15px;
+    text-align: center;
+}
+
+/* Contact Section */
+.contact {
+    padding: 40px 0;
+}
+
+.info-wrap {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.info {
+    text-align: center;
+    padding: 15px;
+}
+
+.info i {
+    font-size: 24px;
+    color: #28a745;
+}
+
+.info h6 {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Form Styling */
+.form-control {
+    border-radius: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
+textarea {
+    resize: none;
+}
+
+.btn-success {
+    background: #28a745;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-success:hover {
+    background: #218838;
+}
+
+</style>
 <main id="main">
-
+    <!-- ======= Header ======= -->
+    <!-- <header class="header">
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'logout' %}">Log Out</a></li>
+            </ul>
+        </nav>
+    </header> -->
+    
     <!-- ======= Breadcrumbs ======= -->
     <section id="breadcrumbs" class="breadcrumbs">
-      <div class="container">
-
-        <div class="d-flex justify-content-between align-items-center">
-          <h2>Contact</h2>
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Contact</h2>
+            </div>
         </div>
-
-      </div>
-      </br>
-
-    </section><!-- End Breadcrumbs -->
+    </section>
 
     <!-- ======= Contact Section ======= -->
-
-
     <section id="contact" class="contact">
-      <div class="container">
-
-        <div class="row justify-content-center" data-aos="fade-up">
-
-          <div class="col-lg-10">
-
-            <div class="info-wrap">
-              <div class="row">
-                <div class="col-lg-4 info">
-                  <i class="icofont-google-map"></i>
-                  <h6>Location:</h6>
-                  <p>{{ contactlist.address }}</p>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="info-wrap">
+                        <div class="row">
+                            <div class="col-lg-4 info">
+                                <i class="icofont-google-map"></i>
+                                <h6>Location:</h6>
+                                <p>{{ contactlist.address }}</p>
+                            </div>
+                            <div class="col-lg-4 info">
+                                <i class="icofont-envelope"></i>
+                                <h6>Email:</h6>
+                                <p>{{ contactlist.email }}</p>
+                            </div>
+                            <div class="col-lg-4 info">
+                                <i class="icofont-phone"></i>
+                                <h6>Call:</h6>
+                                <p>{{ contactlist.phone }}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="col-lg-4 info mt-4 mt-lg-0">
-                  <i class="icofont-envelope"></i>
-                  <h6>Email:</h6>
-                  <p>{{ contactlist.email }}</p>
-                </div>
-
-                <div class="col-lg-4 info mt-4 mt-lg-0">
-                  <i class="icofont-phone"></i>
-                  <h6>Call:</h6>
-                  <p>{{ contactlist.phone }}</p>
-                </div>
-              </div>
             </div>
 
-          </div>
-
-        </div>
-
-        <div class="row mt-5 justify-content-center" data-aos="fade-up">
-          <div class="col-lg-10">
-            <form action="" method="post" >
-              {% csrf_token %}
-              <div class="form-row">
-                <div class="col-md-6 form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required />
-                  <div class="validate"></div>
+            <!-- Contact Form -->
+            <div class="row mt-5 justify-content-center">
+                <div class="col-lg-8">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="col-md-6 form-group">
+                                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required />
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required />
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-success" type="submit">Send Message</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="col-md-6 form-group">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required />
-                  <div class="validate"></div>
-                </div>
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required />
-                <div class="validate"></div>
-              </div>
-              <div class="form-group">
-                <textarea class="form-control" name="message" rows="5" data-rule="required"  placeholder="Message"></textarea>
-                <div class="validate"></div>
-              </div>
-
-              <div class="text-center">
-                <button  class="btn btn-success" type="submit">Send Message</button></div>
-            </form>
-          </div>
-
+            </div>
         </div>
+    </section>
+</main>
 
-      </div>
-    </section><!-- End Contact Section -->
-
-  </main><!-- End #main -->
-{% endblock %}
+<!-- {% endblock %} -->
